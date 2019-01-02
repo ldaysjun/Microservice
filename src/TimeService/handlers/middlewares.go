@@ -12,7 +12,7 @@ import (
 
 	stdprometheus "github.com/prometheus/client_golang/prometheus"
 )
-
+//gengxin1
 
 func LogMiddleware(next endpoint.Endpoint) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
