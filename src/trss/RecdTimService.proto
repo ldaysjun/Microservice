@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+    // 定义你的包名
+    package echo;
+
+    import "google/api/annotations.proto";
+
+    // 定义你的服务名
+    service TimService {
+        // 定义一个方法Echo,输入 TimedTaskRequest ,输出 TimedTaskResponse
+        rpc TimedTask (TimedTaskRequest) returns (TimedTaskResponse) {
+            option (google.api.http) = {
+              // http接口使用GET方法路由至, 所有的字段都会放到query string中
+              get: "/timedTask"
+            };
+        }
+
+        rpc TimedTaskTime (TimedTaskRequest) returns (TimedTaskResponse) {
+            option (google.api.http) = {
+              // http接口使用GET方法路由至, 所有的字段都会放到query string中
+              get: "/timedTaskTime"
+            };
+        }
+    }
+
+    message TimedTaskRequest {
+        int32 start = 1;
+        int32 end = 2;
+        int32 restall = 3;
+    }
+
+    message TimedTaskResponse {
+        int32 err_code = 1;
+        string ere_msg = 2;
+        string exp_data = 3;
+    }
