@@ -4,6 +4,7 @@ import (
 	"TimeService"
 	"TimeService/handlers"
 	"TimeService/svc"
+
 	"google.golang.org/grpc"
 	"log"
 	"net"
@@ -16,6 +17,7 @@ type Config struct {
 }
 
 func NewEndpoints()svc.Endpoints {
+
 	var service echo.TimServiceServer
 	{
 		service = handlers.NewSerVice()
@@ -32,21 +34,25 @@ func NewEndpoints()svc.Endpoints {
 }
 
 func Run()  {
-	errc := make(chan error)
+	errC := make(chan error)
+
 	endpoints := NewEndpoints()
 
 	go func() {
 		listen,err := net.Listen("tcp","localhost:50051")
 		if err != nil {
-			errc<-err
+			errC<-err
 			return
 		}
+
 		srv := MakeGRPCServer(endpoints)
 		s := grpc.NewServer()
 		echo.RegisterTimServiceServer(s,srv)
-		errc<-s.Serve(listen)
+		errC<-s.Serve(listen)
 	}()
-	log.Println("exit",<-errc)
+
+
+	log.Println("exit",<-errC)
 
 }
 

@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/go-kit/kit/endpoint"
-	"log"
 
 	pb "TimeService"
 )
@@ -14,7 +13,11 @@ type Endpoints struct {
 }
 
 func MakeTimedTaskEndpoints(s pb.TimServiceServer) endpoint.Endpoint {
+
+
+
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
+		fmt.Println("cehsi1")
 		req := request.(*pb.TimedTaskRequest)
 		rsp, err := s.TimedTask(ctx, req)
 		if err != nil {
@@ -30,7 +33,7 @@ func (e *Endpoints) WrapAllExcept(middleware endpoint.Middleware, excluded ...st
 	}
 	for _, ex := range excluded {
 		if _, ok := included[ex]; !ok {
-			log.Println("excluded endpoint ", ex, " does not exist")
+			//log.Println("excluded endpoint ", ex, " does not exist")
 		}
 		delete(included, ex)
 	}
