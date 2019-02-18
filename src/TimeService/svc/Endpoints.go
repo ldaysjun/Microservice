@@ -14,10 +14,7 @@ type Endpoints struct {
 
 func MakeTimedTaskEndpoints(s pb.TimServiceServer) endpoint.Endpoint {
 
-
-
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
-		fmt.Println("cehsi1")
 		req := request.(*pb.TimedTaskRequest)
 		rsp, err := s.TimedTask(ctx, req)
 		if err != nil {
